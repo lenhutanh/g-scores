@@ -1,0 +1,27 @@
+# Dependency directories
+**/node_modules/
+**/dist/
+**/build/
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+# Logs
+**/logs/
+**/*.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+.agents/
+.claude/
+.windsurf/
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
