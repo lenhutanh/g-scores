@@ -91,7 +91,7 @@ export default function ReportsPage() {
       <Card className="w-full bg-white shadow-sm border border-slate-200">
         <CardHeader className="flex flex-row items-center justify-between gap-4 flex-wrap border-b border-slate-100 pb-4">
           <div>
-            <Select value={selectedSubjectId} onValueChange={setSelectedSubjectId}>
+            <Select value={selectedSubjectId} onValueChange={(val) => setSelectedSubjectId(val ?? '')}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a subject">
                   {stats?.find((s) => s.subjectId === selectedSubjectId)?.subjectName}
