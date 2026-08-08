@@ -9,4 +9,9 @@ export class ReportController {
   getStats() {
     return this.reportService.getStats();
   }
+
+  @Get('top-group-a')
+  getTopGroupA() {
+    return this.reportService.getTopGroupA();
+  }
 }

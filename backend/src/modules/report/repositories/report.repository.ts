@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { IReportRepository } from '../interfaces/report.repository.interface';
+import { SubjectCode } from '../../../generated/prisma/enums';
 
 @Injectable()
 export class ReportRepository implements IReportRepository {
@@ -19,5 +20,33 @@ export class ReportRepository implements IReportRepository {
       GROUP BY s.id, s.name
     `;
     return stats;
+  }
+
+  async getTopGroupA(): Promise<any> {
+    return this.prisma.$queryRaw`
+      WITH top_10_ids AS (
+        SELECT 
+          sc."candidateId",
+          MAX(CASE WHEN sc."subjectId" = ${SubjectCode.math} THEN sc.score END) AS "math",
+          MAX(CASE WHEN sc."subjectId" = ${SubjectCode.physics} THEN sc.score END) AS "physics",
+          MAX(CASE WHEN sc."subjectId" = ${SubjectCode.chemistry} THEN sc.score END) AS "chemistry",
+          SUM(sc.score) AS "totalScore"
+        FROM "Score" sc
+        WHERE sc."subjectId" IN (${SubjectCode.math}, ${SubjectCode.physics}, ${SubjectCode.chemistry})
+        GROUP BY sc."candidateId"
+        HAVING COUNT(DISTINCT sc."subjectId") = 3
+        ORDER BY "totalScore" DESC
+        LIMIT 10
+      )
+      SELECT 
+        c."registrationNo",
+        CAST(t."math" AS DOUBLE PRECISION) AS "math",
+        CAST(t."physics" AS DOUBLE PRECISION) AS "physics",
+        CAST(t."chemistry" AS DOUBLE PRECISION) AS "chemistry",
+        CAST(t."totalScore" AS DOUBLE PRECISION) AS "totalScore"
+      FROM top_10_ids t
+      JOIN "Candidate" c ON t."candidateId" = c.id
+      ORDER BY t."totalScore" DESC;
+    `;
   }
 }
