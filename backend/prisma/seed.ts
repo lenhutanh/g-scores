@@ -47,15 +47,15 @@ const SUBJECT_MAPPING: {
 ];
 
 const SUBJECTS_INFO = [
-  { id: SubjectCode.math, name: 'Toán học' },
-  { id: SubjectCode.literature, name: 'Ngữ văn' },
-  { id: SubjectCode.foreign_language, name: 'Ngoại ngữ' },
-  { id: SubjectCode.physics, name: 'Vật lý' },
-  { id: SubjectCode.chemistry, name: 'Hóa học' },
-  { id: SubjectCode.biology, name: 'Sinh học' },
-  { id: SubjectCode.history, name: 'Lịch sử' },
-  { id: SubjectCode.geography, name: 'Địa lý' },
-  { id: SubjectCode.civics, name: 'Giáo dục công dân' },
+  { id: SubjectCode.math, name: 'Mathematics' },
+  { id: SubjectCode.literature, name: 'Literature' },
+  { id: SubjectCode.foreign_language, name: 'Foreign Language' },
+  { id: SubjectCode.physics, name: 'Physics' },
+  { id: SubjectCode.chemistry, name: 'Chemistry' },
+  { id: SubjectCode.biology, name: 'Biology' },
+  { id: SubjectCode.history, name: 'History' },
+  { id: SubjectCode.geography, name: 'Geography' },
+  { id: SubjectCode.civics, name: 'Civic Education' },
 ];
 
 async function main() {
