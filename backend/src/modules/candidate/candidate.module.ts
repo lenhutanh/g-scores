@@ -14,4 +14,4 @@ import { CandidateRepository } from './repositories/candidate.repository';
   ],
   exports: [CandidateService],
 })
-export class CandidateModule {}
+export class CandidateModule { }
