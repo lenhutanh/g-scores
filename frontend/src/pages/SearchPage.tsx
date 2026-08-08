@@ -35,7 +35,8 @@ export default function SearchPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">National High School Graduation Exam Scores 2024</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Search Scores</h1>
+        <p className="text-slate-500">Search and view detailed national high school graduation exam scores.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-row items-start gap-4 flex-wrap">
