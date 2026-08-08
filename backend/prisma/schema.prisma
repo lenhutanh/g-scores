@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider     = "prisma-client"
   output       = "../src/generated/prisma"
@@ -11,4 +6,51 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum LanguageCode {
+  N1
+  N2
+  N3
+  N4
+  N5
+  N6
+  N7
+}
+
+enum SubjectCode {
+  math
+  literature
+  foreign_language
+  physics
+  chemistry
+  biology
+  history
+  geography
+  civics
+}
+
+model Candidate {
+  id             Int           @id @default(autoincrement())
+  registrationNo String        @unique @db.VarChar(8)
+  languageCode   LanguageCode?
+  scores         Score[]
+}
+
+model Subject {
+  id     SubjectCode @id
+  name   String
+  scores Score[]
+}
+
+model Score {
+  candidateId Int
+  subjectId   SubjectCode
+  score       Decimal     @db.Decimal(4, 2)
+
+  candidate Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  subject   Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@id([candidateId, subjectId])
+  @@index([subjectId, score])
 }
