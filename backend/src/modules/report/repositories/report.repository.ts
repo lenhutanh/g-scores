@@ -8,16 +8,25 @@ export class ReportRepository implements IReportRepository {
   constructor(private readonly prisma: PrismaService) {}
   async getStats(): Promise<any> {
     const stats = await this.prisma.$queryRaw`
-      SELECT
+      WITH stats_by_subject AS (
+        SELECT 
+          sc."subjectId",
+          CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 8) AS INTEGER) AS "gte8",
+          CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 6 AND sc.score < 8) AS INTEGER) AS "g6to8",
+          CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 4 AND sc.score < 6) AS INTEGER) AS "g4to6",
+          CAST(COUNT(sc.score) FILTER (WHERE sc.score < 4) AS INTEGER) AS "lt4"
+        FROM "Score" sc
+        GROUP BY sc."subjectId"
+      )
+      SELECT 
         s.id AS "subjectId",
         s.name AS "subjectName",
-        CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 8) AS INTEGER) AS "gte8",
-        CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 6 AND sc.score < 8) AS INTEGER) AS "g6to8",
-        CAST(COUNT(sc.score) FILTER (WHERE sc.score >= 4 AND sc.score < 6) AS INTEGER) AS "g4to6",
-        CAST(COUNT(sc.score) FILTER (WHERE sc.score < 4) AS INTEGER) AS "lt4"
+        COALESCE(t."gte8", 0) AS "gte8",
+        COALESCE(t."g6to8", 0) AS "g6to8",
+        COALESCE(t."g4to6", 0) AS "g4to6",
+        COALESCE(t."lt4", 0) AS "lt4"
       FROM "Subject" s
-      LEFT JOIN "Score" sc ON s.id = sc."subjectId"
-      GROUP BY s.id, s.name
+      LEFT JOIN stats_by_subject t ON s.id = t."subjectId";
     `;
     return stats;
   }
