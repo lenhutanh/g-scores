@@ -11,4 +11,8 @@ export class ReportService {
   async getStats() {
     return this.reportRepository.getStats();
   }
+
+  async getTopGroupA() {
+    return this.reportRepository.getTopGroupA();
+  }
 }
