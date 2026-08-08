@@ -6,3 +6,12 @@ export type SubjectStats = {
   g4to6: number;
   lt4: number;
 }
+
+export type TopCandidate = {
+  registrationNo: string;
+  math: number;
+  physics: number;
+  chemistry: number;
+  totalScore: number;
+}
+

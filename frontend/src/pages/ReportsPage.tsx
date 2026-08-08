@@ -84,8 +84,8 @@ export default function ReportsPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Score Statistics</h1>
-        <p className="text-slate-500">Detailed distribution of high school graduation exam scores by subject.</p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Reports</h1>
+        <p className="text-slate-500">Score distributions of exam subjects.</p>
       </div>
 
       <Card className="w-full bg-white shadow-sm border border-slate-200">

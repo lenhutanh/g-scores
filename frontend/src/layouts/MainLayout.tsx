@@ -18,8 +18,8 @@ export default function MainLayout() {
             <NavLink to="/" end className={getLinkClass}>
               Search Scores
             </NavLink>
-            <NavLink to="/dashboard" className={getLinkClass}>
-              Dashboard
+            <NavLink to="/leaderboard" className={getLinkClass}>
+              Leaderboard
             </NavLink>
             <NavLink to="/reports" className={getLinkClass}>
               Reports
